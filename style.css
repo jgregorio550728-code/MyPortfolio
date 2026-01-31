@@ -1,0 +1,231 @@
+/* ============================================================
+   1. GLOBAL SETTINGS 
+   (Basic body and layout rules)
+   ============================================================ */
+html { scroll-behavior: smooth; }
+
+body { 
+    background-color: #000; 
+    color: #f8f9fa; 
+    overflow-x: hidden; 
+    font-family: sans-serif; 
+    padding-top: 56px; 
+}
+
+section {
+    position: relative;
+    z-index: 1;
+}
+
+/* ============================================================
+   2. NAVBAR (NAV BOX) & GLOWING UNDERLINE
+   (Search here to change the top navigation menu)
+   ============================================================ */
+.navbar {
+    z-index: 1050 !important;
+}
+
+.navbar-nav .nav-link {
+    position: relative;
+    color: #ffffff !important;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+    
+    /* REMOVED: Permanent text-shadow was here, causing the unwanted glow */
+    text-shadow: none; 
+}
+
+/* Hover & Active: This is the ONLY time the text should glow */
+.navbar-nav .nav-link:hover, 
+.navbar-nav .nav-link:focus,
+.navbar-nav .nav-link.active {
+    color: #00d4ff !important;
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.8), 0 0 20px rgba(0, 123, 255, 0.4);
+}
+
+/* Glowing Underline - Cleaned up to prevent "cutting" */
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    width: 0; /* Starts at 0 so it only shows on hover/active */
+    height: 2px;
+    background: #00d4ff;
+    box-shadow: 0 0 8px #00d4ff;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.navbar-nav .nav-link:hover::after,
+.navbar-nav .nav-link.active::after {
+    width: 70%; /* Line appears only when pointed at or active */
+}
+/* ============================================================
+   3. HERO SECTION (HOME BACKGROUND)
+   (Search here for the main landing image and typing effect)
+   ============================================================ */
+#home {
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                url('pics/solo.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.typing-animation {
+    font-size: 4.5rem; 
+    font-weight: 800;
+    color: #ffffff;
+    text-transform: uppercase;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden; 
+    width: 0; 
+    text-shadow: 0 0 8px rgba(0, 212, 255, 0.9), 0 0 30px rgba(0, 123, 255, 0.4);
+    border-right: 5px solid #00d4ff; 
+    padding-right: 12px;
+    animation: typing 3.5s steps(20, end) forwards, blink 0.8s step-end infinite;
+}
+
+@keyframes typing { from { width: 0; } to { width: 100%; } }
+@keyframes blink { from, to { border-color: transparent; } 50% { border-color: #00d4ff; } }
+
+/* ============================================================
+   4. MANA CARDS & ABOUT ME GLOW
+   (Search here for the glowing boxes and flame effects)
+   ============================================================ */
+
+/* General Card Design */
+.mana-card {
+    background-color: #1a1d20 !important; 
+    border: 1px solid #007bff !important;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    z-index: 5;
+}
+
+/* --- FIX: High Visibility Paragraph Text --- */
+#about p, .text-muted { 
+    color: #ffffff !important; /* Forces text to pure white for easy reading */
+    opacity: 0.9;              /* Makes it clean but not blinding */
+    font-size: 1.1rem;         /* Slightly larger for better readability */
+    line-height: 1.6;
+}
+
+/* SPECIFIC PERMANENT GLOW FOR ABOUT ME CARD */
+#about-glow-card {
+    box-shadow: 0 0 25px rgba(0, 212, 255, 0.6) !important;
+    border-color: #00d4ff !important;
+}
+
+/* Force the "Blue Flame" aura to stay on */
+#about-glow-card::before {
+    content: '';
+    position: absolute;
+    top: -2px; left: -2px; right: -2px; bottom: -2px;
+    background: linear-gradient(45deg, #007bff, #00d4ff, #001eff, #007bff);
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(15px);
+    opacity: 1 !important; /* Always visible */
+    animation: mana-flow 3s linear infinite !important;
+}
+
+/* Hover effect for ALL cards */
+.mana-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 40px rgba(0, 212, 255, 0.6) !important;
+}
+.mana-card:hover::before { 
+    opacity: 1; 
+    animation: mana-flow 3s linear infinite; 
+}
+#about p, .text-muted { 
+    color: #ffffff !important; /* Changed to white for high visibility */
+    opacity: 1;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* This is the SPECIFIC box you wanted to glow permanently */
+#about-glow-card {
+    box-shadow: 0 0 25px rgba(0, 212, 255, 0.6) !important;
+    border-color: #00d4ff !important;
+}
+
+#about-glow-card::before {
+    opacity: 1 !important; /* Keeps the "Mana Flame" active */
+    animation: mana-flow 3s linear infinite !important;
+}
+
+@keyframes mana-flow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ============================================================
+   5. CONTACT BUTTONS & SOCIALS
+   (Search here for the Discord/FB button animations)
+   ============================================================ */
+#contact .contact-btn {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 10px;
+    background: #0a0a0a;
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    border-radius: 12px;
+    color: #ffffff !important;
+    text-decoration: none !important;
+    transition: all 0.4s ease;
+    height: 120px;
+}
+
+#contact .contact-btn:hover {
+    border-color: #00d4ff;
+    background: rgba(0, 212, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+}
+
+/* ============================================================
+   6. MISC (BUTTONS, VIDEO, MEDIA)
+   ============================================================ */
+/* The base button style with a permanent subtle glow */
+.view-btn { 
+    transition: all 0.3s ease !important; 
+    border-radius: 50px; 
+    border: 1px solid #007bff !important;
+    color: white !important;
+    /* Subtle permanent glow so they are visible */
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5) !important;
+}
+
+.view-btn:hover {
+    background-color: #007bff !important;
+    box-shadow: 0 0 25px #00d4ff !important;
+    transform: scale(1.05);
+}
+
+/* ============================================================
+   5. ANIMATIONS & MEDIA
+   ============================================================ */
+@keyframes mana-flow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+video { object-fit: cover; border-radius: 8px 8px 0 0; }
